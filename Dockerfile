@@ -3,22 +3,11 @@
 # Configure PostgreSQL as the application database
 ENV MB_DB_TYPE=postgres
 
-# Optimize for Railway startup times
-ENV JAVA_OPTS="-Xms2g -Xmx4g -Djava.awt.headless=true -Dfile.encoding=UTF-8"
+# Optimize for faster Railway startup
+ENV MB_JETTY_HOST=0.0.0.0
+ENV MB_JETTY_PORT=3000
 
-# Create a simple startup wrapper
-COPY --chmod=755 <<EOF /startup-wrapper.sh
-#!/bin/bash
-echo "Starting Metabase for Railway..."
-
-# Start a simple HTTP server on port 3000 immediately for health checks
-nohup bash -c 'while true; do echo -e "HTTP/1.1 200 OK\n\nStarting..." | nc -l -p 3000; done' &
-TEMP_PID=\$!
-
-# Start the actual Metabase
-exec /app/run_metabase.sh
-EOF
+# Reduce memory allocation for Railway's smaller containers
+ENV JAVA_OPTS="-Xms512m -Xmx1g -Djava.awt.headless=true -Dfile.encoding=UTF-8"
 
 EXPOSE 3000
-
-ENTRYPOINT ["/startup-wrapper.sh"]
