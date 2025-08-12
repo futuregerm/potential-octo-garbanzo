@@ -1,7 +1,11 @@
 ﻿FROM metabase/metabase:latest
 
-# Set environment variables to use PostgreSQL when DATABASE_URL is available
+# Don't use DATABASE_URL, use individual variables
 ENV MB_DB_TYPE=postgres
-ENV MB_DB_CONNECTION_URI=`$DATABASE_URL
+ENV MB_DB_HOST=$PGHOST
+ENV MB_DB_PORT=$PGPORT  
+ENV MB_DB_USER=$PGUSER
+ENV MB_DB_PASS=$PGPASSWORD
+ENV MB_DB_DBNAME=$PGDATABASE
 
 EXPOSE 3000
