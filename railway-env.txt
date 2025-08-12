@@ -1,0 +1,5 @@
+MB_DB_HOST=${{Postgres.PGHOST}}
+MB_DB_PORT=${{Postgres.PGPORT}}
+MB_DB_USER=${{Postgres.PGUSER}}
+MB_DB_PASS=${{Postgres.PGPASSWORD}}
+MB_DB_DBNAME=${{Postgres.PGDATABASE}}
