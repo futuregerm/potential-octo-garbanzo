@@ -12,7 +12,7 @@ COPY --chmod=755 <<EOF /startup-wrapper.sh
 echo "Starting Metabase for Railway..."
 
 # Start a simple HTTP server on port 3000 immediately for health checks
-nohup bash -c 'while true; do echo -e "HTTP/1.1 200 OK\n\nStarting..." | nc -l -p 3000 -q 1; done' &
+nohup bash -c 'while true; do echo -e "HTTP/1.1 200 OK\n\nStarting..." | nc -l -p 3000; done' &
 TEMP_PID=\$!
 
 # Start the actual Metabase
